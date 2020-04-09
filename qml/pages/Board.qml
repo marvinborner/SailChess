@@ -34,7 +34,7 @@ Page {
                 columns: 8
                 rows: 8
                 Repeater {
-                    id: repeater
+                    id: board
                     model: 64
                     delegate: Square {
                         i: index
