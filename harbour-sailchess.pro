@@ -20,6 +20,7 @@ DISTFILES += qml/harbour-sailchess.qml \
     qml/cover/CoverPage.qml \
     qml/pages/Board.qml \
     qml/Square.qml \
+    qml/Functions.qml \
     rpm/harbour-sailchess.changes.in \
     rpm/harbour-sailchess.changes.run.in \
     rpm/harbour-sailchess.spec \

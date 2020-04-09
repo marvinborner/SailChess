@@ -6,6 +6,10 @@ Page {
     id: page
     allowedOrientations: Orientation.Portrait
 
+    Functions {
+        id: functions
+    }
+
     SilicaFlickable {
         anchors.fill: parent
         contentHeight: column.height
@@ -33,11 +37,10 @@ Page {
                     id: repeater
                     model: 64
                     delegate: Square {
-                        width: page.width / 8
-                        color: ((index >> 3 ^ index) & 1) == 1 ? "#e8ebef" : "#7d8796"
-
+                        i: index
                     }
                 }
+                Component.onCompleted: functions.fill()
             }
         }
     }
