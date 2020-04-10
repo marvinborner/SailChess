@@ -17,7 +17,7 @@ Page {
 
         PullDownMenu {
             MenuItem {
-                text: qsTr("Login")
+                text: qsTr("Refresh login")
                 onClicked: {
                     access_token.value = "";
                     refresh_token.value = "";
@@ -26,11 +26,18 @@ Page {
             }
             MenuItem {
                 text: qsTr("Random player")
+                visible: functions.game_id === "" ? true : false
                 onClicked: functions.start_seek()
             }
             MenuItem {
                 text: qsTr("Play against bot")
-                onClicked: functions.challenge("GodelEscherBot")
+                visible: functions.game_id === "" ? true : false
+                onClicked: functions.challenge("GarboBot")
+            }
+            MenuItem {
+                text: qsTr("Abort game")
+                visible: functions.game_id === "" ? false : true
+                onClicked: functions.abort()
             }
         }
 
@@ -49,6 +56,7 @@ Page {
                 id: information
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.bottom: grid.top
+                bottomPadding: Theme.paddingMedium
                 text: qsTr("Please start a game");
             }
 

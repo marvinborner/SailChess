@@ -9,8 +9,9 @@ Page {
 
         id: login
         anchors.fill: parent
-        experimental.preferences.javascriptEnabled: false
+        experimental.preferences.javascriptEnabled: true
         experimental.userStyleSheets: [Qt.resolvedUrl("qrc:///css/external.css")]
+        // experimental.preferences.privateBrowsingEnabled: true
         experimental.customLayoutWidth: parent.width / device_ratio
         url: "https://marvinborner.de/lichess/"
 

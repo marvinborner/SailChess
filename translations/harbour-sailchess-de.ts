@@ -8,10 +8,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Login</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Random player</source>
         <translation type="unfinished"></translation>
     </message>
@@ -21,6 +17,14 @@
     </message>
     <message>
         <source>Please start a game</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Abort game</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Refresh login</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -38,7 +42,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Challenging </source>
+        <source>Please start a game</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Waiting for </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
