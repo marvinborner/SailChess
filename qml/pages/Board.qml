@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import org.nemomobile.configuration 1.0
 import ".."
 
 Page {
@@ -13,6 +14,17 @@ Page {
     SilicaFlickable {
         anchors.fill: parent
         contentHeight: column.height
+
+        PullDownMenu {
+            MenuItem {
+                text: qsTr("Login")
+                onClicked: {
+                    access_token.value = "";
+                    refresh_token.value = "";
+                    pageStack.push(Qt.resolvedUrl("Login.qml"))
+                }
+            }
+        }
 
         Column {
             id: column
@@ -43,5 +55,17 @@ Page {
                 Component.onCompleted: functions.fill()
             }
         }
+    }
+
+    ConfigurationValue {
+        id: access_token
+        key: "/com/sailchess/access_token"
+        defaultValue: ""
+    }
+
+    ConfigurationValue {
+        id: refresh_token
+        key: "/com/sailchess/refresh_token"
+        defaultValue: ""
     }
 }

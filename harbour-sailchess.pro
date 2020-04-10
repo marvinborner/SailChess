@@ -21,6 +21,7 @@ DISTFILES += qml/harbour-sailchess.qml \
     qml/pages/Board.qml \
     qml/Square.qml \
     qml/Functions.qml \
+    qml/pages/Login.qml \
     rpm/harbour-sailchess.changes.in \
     rpm/harbour-sailchess.changes.run.in \
     rpm/harbour-sailchess.spec \
@@ -39,3 +40,5 @@ CONFIG += sailfishapp_i18n
 # following TRANSLATIONS line. And also do not forget to
 # modify the localized app name in the the .desktop file.
 TRANSLATIONS += translations/harbour-sailchess-de.ts
+
+RESOURCES += qml/resources/resources.qrc

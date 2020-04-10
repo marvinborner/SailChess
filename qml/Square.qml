@@ -3,7 +3,7 @@ import QtQuick 2.0
 Rectangle {
     property int i: 0
     property string piece: ""
-    property string image: piece !== "" ? "images/" + piece + ".svg" : ""
+    property string image: piece !== "" ? "qrc:///images/" + piece + ".svg" : ""
 
     width: page.width / 8
     height: this.width
