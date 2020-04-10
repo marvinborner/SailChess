@@ -57,5 +57,9 @@
         <source>Waiting for </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Game over: </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>

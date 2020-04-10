@@ -96,14 +96,18 @@ Item {
                 xhr.seenBytes = xhr.responseText.length;
 
                 if (new_data !== "\n") {
-                    console.log(new_data);
-                    const data = JSON.parse(new_data);
-                    if (data["type"] === "gameStart") {
-                        information.text = qsTr("Game started!");
-                        fill();
-                        game_id = data["game"]["id"];
-                        game_stream();
-                    }
+                    // TODO: Fix resign
+                    console.log("[" + new_data.replace("\n", ",").replace(/.$/, "]"));
+
+                    const data_arr = JSON.parse("[" + new_data.replace("\n", ",").replace(/.$/, "]"));
+                    data_arr.forEach(function (data) {
+                        if (data["type"] === "gameStart") {
+                            information.text = qsTr("Game started!");
+                            fill();
+                            game_id = data["game"]["id"];
+                            game_stream();
+                        }
+                    });
                 }
             }
         };
@@ -124,30 +128,35 @@ Item {
                 game_xhr.seenBytes = game_xhr.responseText.length;
 
                 if (new_data !== "\n") {
-                    console.log(new_data);
+                    console.log("[" + new_data.replace("\n", ",").replace(/.$/, "]"));
 
-                    const data = JSON.parse(new_data);
-                    var all_moves;
-                    if (data["type"] === "gameFull") {
-                        all_moves = data["state"]["moves"];
-                    } else if (data["type"] === "gameState") {
-                        all_moves = data["moves"];
-                    }
+                    const data_arr = JSON.parse("[" + new_data.replace("\n", ",").replace(/.$/, "]"));
+                    data_arr.forEach(function (data) {
+                        // TODO: Implement castling: e1c1, e1, g1, e8c8, e8g8
+                        var all_moves, status;
+                        if (data["type"] === "gameFull") {
+                            all_moves = data["state"]["moves"];
+                            status = data["state"]["status"];
+                        } else if (data["type"] === "gameState") {
+                            all_moves = data["moves"];
+                            status = data["status"];
+                        }
 
-                    console.log(moves);
-                    console.log(all_moves);
+                        const new_moves = all_moves.slice(moves.length)
+                        moves += new_moves;
 
-                    const new_moves = all_moves.slice(moves.length)
-                    moves += new_moves;
-                    turn = moves.split(" ").length % 2 === (start ? 0 : 1);
-                    console.log(moves.split(" ").length % 2 === (start ? 1 : 0));
+                        turn = (moves.split(" ").length === 1 && start) || moves.split(" ").length % 2 === (start ? 0 : 1);
 
-                    console.log(moves);
+                        new_moves.split(" ").forEach(function(move) {
+                            if (move !== "") {
+                                const arr = convert_movement(move);
+                                move_piece(arr[0], arr[1]);
+                            }
+                        });
 
-                    new_moves.split(" ").forEach(function(move) {
-                        if (move !== "") {
-                            const arr = convert_movement(move);
-                            move_piece(arr[0], arr[1]);
+                        if (status !== "started") {
+                            stop_game();
+                            information.text = qsTr("Game over: ") + status;
                         }
                     });
                 }
@@ -164,22 +173,24 @@ Item {
         xhr.setRequestHeader("Authorization", "Bearer " + access_token.value);
 
         xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4) {
+            if (xhr.readyState === 4)
                 callback(JSON.parse(xhr.responseText));
-            }
         }
         xhr.send(params);
+    }
+
+    function stop_game() {
+        game_id = "";
+        moves = "";
+        game_xhr.abort();
     }
 
     function abort() {
         post("board/game/" + game_id + "/abort", "", function (response) {
             if (response["ok"]) {
                 information.text = qsTr("Please start a game");
-                game_id = "";
-                moves = "";
                 clear();
-                game_xhr.abort();
-                console.log(JSON.stringify(response));
+                stop_game();
             }
         })
     }

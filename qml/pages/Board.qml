@@ -32,7 +32,7 @@ Page {
             MenuItem {
                 text: qsTr("Play against bot")
                 visible: functions.game_id === "" ? true : false
-                onClicked: functions.challenge("GarboBot")
+                onClicked: functions.challenge("awesomelvin")
             }
             MenuItem {
                 text: qsTr("Abort game")
