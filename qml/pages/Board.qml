@@ -76,10 +76,16 @@ Page {
                     }
                 }
                 Component.onCompleted: {
-                    // functions.fill();
                     functions.event_stream();
-                    // functions.challenge("GodelEscherBot");
                 }
+            }
+
+            Label {
+                // id: turn_label
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: grid.bottom
+                topPadding: Theme.paddingMedium
+                text: functions.turn ? qsTr("Your turn") : qsTr("Opponents turn");
             }
         }
     }

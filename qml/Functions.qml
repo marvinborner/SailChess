@@ -32,7 +32,7 @@ Item {
 
     property var selected: []
     function select(i) {
-        if (selected.length < 2 && game_id !== "") {
+        if (selected.length < 2 && game_id !== "" && turn) {
             if (selected.indexOf(i) === -1) selected.push(i)
             else selected.splice(selected.indexOf(i), 1)
 
@@ -67,17 +67,20 @@ Item {
     }
 
     function move(from, to) {
-        console.log(convert_index(from) + "-" + convert_index(to));
         post("board/game/" + game_id + "/move/" + convert_index(from) + convert_index(to), "", function (response) {
             console.log(JSON.stringify(response));
-            if (response["ok"])
+            if (response["ok"]) {
+                turn = false;
                 move_piece(from, to);
+            }
         })
         selected = [];
     }
 
     // END LOGIC
 
+    property bool start: true
+    property bool turn: true
     property var game_id: ""
     property var moves: ""
 
@@ -89,10 +92,10 @@ Item {
 
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 3) {
-                try {
-                    const new_data = xhr.response.substr(xhr.seenBytes);
-                    xhr.seenBytes = xhr.responseText.length;
+                const new_data = xhr.response.substr(xhr.seenBytes);
+                xhr.seenBytes = xhr.responseText.length;
 
+                if (new_data !== "\n") {
                     console.log(new_data);
                     const data = JSON.parse(new_data);
                     if (data["type"] === "gameStart") {
@@ -101,7 +104,7 @@ Item {
                         game_id = data["game"]["id"];
                         game_stream();
                     }
-                } catch (Exception) {}
+                }
             }
         };
 
@@ -117,11 +120,12 @@ Item {
 
         game_xhr.onreadystatechange = function() {
             if (game_xhr.readyState === 3) {
-                try {
-                    const new_data = game_xhr.response.substr(game_xhr.seenBytes);
-                    game_xhr.seenBytes = game_xhr.responseText.length;
+                const new_data = game_xhr.response.substr(game_xhr.seenBytes);
+                game_xhr.seenBytes = game_xhr.responseText.length;
 
+                if (new_data !== "\n") {
                     console.log(new_data);
+
                     const data = JSON.parse(new_data);
                     var all_moves;
                     if (data["type"] === "gameFull") {
@@ -135,6 +139,8 @@ Item {
 
                     const new_moves = all_moves.slice(moves.length)
                     moves += new_moves;
+                    turn = moves.split(" ").length % 2 === (start ? 0 : 1);
+                    console.log(moves.split(" ").length % 2 === (start ? 1 : 0));
 
                     console.log(moves);
 
@@ -144,7 +150,7 @@ Item {
                             move_piece(arr[0], arr[1]);
                         }
                     });
-                } catch (Exception) {}
+                }
             }
         };
 

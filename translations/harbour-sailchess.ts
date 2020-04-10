@@ -27,6 +27,14 @@
         <source>Refresh login</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Your turn</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Opponents turn</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CoverPage</name>
