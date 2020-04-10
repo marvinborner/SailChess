@@ -51,4 +51,71 @@ Item {
         board.itemAt(from).piece = "";
         selected = [];
     }
+
+    // END LOGIC
+
+    property var game_id: ""
+
+    function event_stream() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "https://lichess.org/api/stream/event");
+        xhr.seenBytes = 0;
+        xhr.setRequestHeader("Authorization", "Bearer " + access_token.value);
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 3) {
+                try {
+                    const new_data = xhr.response.substr(xhr.seenBytes);
+                    xhr.seenBytes = xhr.responseText.length;
+
+                    console.log(new_data);
+                    const data = JSON.parse(new_data);
+                    if (data["type"] === "gameStart") {
+                        information.text = qsTr("Game started!");
+                        fill();
+                        game_id = data["game"]["id"];
+                    }
+                } catch (Exception) {}
+            }
+        };
+
+        xhr.send();
+    }
+
+    function post(path, params, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "https://lichess.org/api/" + path);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.setRequestHeader("Authorization", "Bearer " + access_token.value);
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                callback(JSON.parse(xhr.responseText));
+            } else if (xhr.readyState === 4) {
+                console.error(xhr.responseText);
+            }
+        }
+        xhr.send(params);
+    }
+
+    function challenge(username) {
+        post("challenge/" + username, "rated=false&clock.limit=10800&clock.increment=60&days=14&color=white", function (response) {
+            information.text = qsTr("Challenging ") + response["challenge"]["destUser"]["name"];
+            console.log(JSON.stringify(response));
+        });
+    }
+
+    function start_seek() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "https://lichess.org/api/account");
+        xhr.setRequestHeader("Authorization", "Bearer " + access_token.value);
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 3) {
+                console.log(xhr.responseText);
+            }
+        };
+
+        xhr.send();
+    }
 }

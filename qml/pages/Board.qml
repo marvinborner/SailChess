@@ -24,6 +24,14 @@ Page {
                     pageStack.push(Qt.resolvedUrl("Login.qml"))
                 }
             }
+            MenuItem {
+                text: qsTr("Random player")
+                onClicked: functions.start_seek()
+            }
+            MenuItem {
+                text: qsTr("Play against bot")
+                onClicked: functions.challenge("GodelEscherBot")
+            }
         }
 
         Column {
@@ -35,6 +43,13 @@ Page {
 
             PageHeader {
                 title: qsTr("Chess")
+            }
+
+            Label {
+                id: information
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.bottom: grid.top
+                text: qsTr("Please start a game");
             }
 
             Grid {
@@ -52,7 +67,11 @@ Page {
                         i: index
                     }
                 }
-                Component.onCompleted: functions.fill()
+                Component.onCompleted: {
+                    // functions.fill();
+                    functions.event_stream();
+                    // functions.challenge("GodelEscherBot");
+                }
             }
         }
     }

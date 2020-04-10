@@ -11,12 +11,35 @@
         <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Random player</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Play against bot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please start a game</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CoverPage</name>
     <message>
         <source>My Cover</source>
         <translation>Mein Cover</translation>
+    </message>
+</context>
+<context>
+    <name>Functions</name>
+    <message>
+        <source>Game started!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Challenging </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
