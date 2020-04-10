@@ -39,7 +39,14 @@ Item {
         }
     }
 
+    function convert(i) {
+        const first = (i % 8) + 'a'.charCodeAt(0);
+        const second = (7 - parseInt(i / 8)) + '1'.charCodeAt(0);
+        return String.fromCharCode(first, second);
+    }
+
     function move(from, to) {
+        console.log(convert(from) + "-" + convert(to));
         board.itemAt(to).piece = board.itemAt(from).piece;
         board.itemAt(from).piece = "";
         selected = [];
