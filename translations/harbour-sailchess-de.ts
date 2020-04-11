@@ -69,7 +69,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>An error occured: </source>
+        <source>An error occurred: </source>
         <translation type="unfinished"></translation>
     </message>
 </context>

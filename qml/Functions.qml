@@ -71,10 +71,34 @@ Item {
             console.log(JSON.stringify(response));
             if (response["ok"]) {
                 turn = false;
-                move_piece(from, to);
+                // move_piece(from, to);
             }
         })
         selected = [];
+    }
+
+    function castle(move) {
+        console.log("'" + move + "'");
+        if (["e1c1", "e1g1", "e8c8", "e8g8"].indexOf(move) !== -1) {
+            var rook;
+            switch (move) {
+            case "e1c1":
+                rook = convert_movement("a1d1")
+                break;
+            case "e1g1":
+                rook = convert_movement("h1f1")
+                break;
+            case "e8c8":
+                rook = convert_movement("a8d8")
+                break;
+            case "e8g8":
+                rook = convert_movement("h8f8")
+                break;
+            }
+            console.log(rook);
+
+            move_piece(rook[0], rook[1]);
+        }
     }
 
     // END LOGIC
@@ -103,6 +127,8 @@ Item {
                     data_arr.forEach(function (data) {
                         if (data["type"] === "gameStart") {
                             information.text = qsTr("Game started!");
+                            clear();
+                            stop_game();
                             fill();
                             game_id = data["game"]["id"];
                             game_stream();
@@ -140,7 +166,6 @@ Item {
 
                     const data_arr = JSON.parse("[" + new_data.replace(/(?:\r\n|\r|\n)/g, ",").replace(/\,$/, "") + "]");
                     data_arr.forEach(function (data) {
-                        // TODO: Implement castling: e1c1, e1, g1, e8c8, e8g8
                         var all_moves, status;
                         if (data["type"] === "gameFull") {
                             all_moves = data["state"]["moves"];
@@ -153,6 +178,8 @@ Item {
                             clear();
                             stop_game();
                             return;
+                        } else if (data["type"] === "chatLine") {
+                            return;
                         }
 
                         const new_moves = all_moves.slice(moves.length)
@@ -162,8 +189,10 @@ Item {
 
                         new_moves.split(" ").forEach(function(move) {
                             if (move !== "") {
+                                // TODO: Implement pawn promotion and en passant
                                 const arr = convert_movement(move);
                                 move_piece(arr[0], arr[1]);
+                                castle(move);
                             }
                         });
 
@@ -193,9 +222,11 @@ Item {
     }
 
     function stop_game() {
-        game_id = "";
-        moves = "";
-        game_xhr.abort();
+        try {
+            game_id = "";
+            moves = "";
+            game_xhr.abort();
+        } catch (Exception) {} // idc
     }
 
     function abort() {
