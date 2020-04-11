@@ -21,6 +21,7 @@ DISTFILES += qml/harbour-sailchess.qml \
     qml/pages/Board.qml \
     qml/Square.qml \
     qml/Functions.qml \
+    qml/pages/ChallengeDialog.qml \
     qml/pages/Login.qml \
     rpm/harbour-sailchess.changes.in \
     rpm/harbour-sailchess.changes.run.in \

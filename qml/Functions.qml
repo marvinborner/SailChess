@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.2
 import "pages"
 
 Item {
@@ -97,15 +97,23 @@ Item {
 
                 if (new_data !== "\n") {
                     // TODO: Fix resign
-                    console.log("[" + new_data.replace("\n", ",").replace(/.$/, "]"));
+                    console.log("[" + new_data.replace(/(?:\r\n|\r|\n)/g, ",").replace(/\,$/, "") + "]");
 
-                    const data_arr = JSON.parse("[" + new_data.replace("\n", ",").replace(/.$/, "]"));
+                    const data_arr = JSON.parse("[" + new_data.replace(/(?:\r\n|\r|\n)/g, ",").replace(/\,$/, "") + "]");
                     data_arr.forEach(function (data) {
                         if (data["type"] === "gameStart") {
                             information.text = qsTr("Game started!");
                             fill();
                             game_id = data["game"]["id"];
                             game_stream();
+                        } else if (data["type"] === "challenge") {
+                            var dialog = pageStack.push("pages/ChallengeDialog.qml", {"name": data["challenge"]["challenger"]["name"]});
+                            dialog.accepted.connect(function() {
+                                post("challenge/" + data["challenge"]["id"] + "/accept", "", function() {});
+                            })
+                            dialog.rejected.connect(function() {
+                                post("challenge/" + data["challenge"]["id"] + "/decline", "", function() {});
+                            })
                         }
                     });
                 }
@@ -128,9 +136,9 @@ Item {
                 game_xhr.seenBytes = game_xhr.responseText.length;
 
                 if (new_data !== "\n") {
-                    console.log("[" + new_data.replace("\n", ",").replace(/.$/, "]"));
+                    console.log("[" + new_data.replace(/(?:\r\n|\r|\n)/g, ",").replace(/\,$/, "") + "]");
 
-                    const data_arr = JSON.parse("[" + new_data.replace("\n", ",").replace(/.$/, "]"));
+                    const data_arr = JSON.parse("[" + new_data.replace(/(?:\r\n|\r|\n)/g, ",").replace(/\,$/, "") + "]");
                     data_arr.forEach(function (data) {
                         // TODO: Implement castling: e1c1, e1, g1, e8c8, e8g8
                         var all_moves, status;
@@ -140,6 +148,11 @@ Item {
                         } else if (data["type"] === "gameState") {
                             all_moves = data["moves"];
                             status = data["status"];
+                        } else if (data["error"]) {
+                            information.text = qsTr("An error occurred: ") + data["error"];
+                            clear();
+                            stop_game();
+                            return;
                         }
 
                         const new_moves = all_moves.slice(moves.length)

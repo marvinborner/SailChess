@@ -37,6 +37,13 @@
     </message>
 </context>
 <context>
+    <name>ChallengeDialog</name>
+    <message>
+        <source> challenges you</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CoverPage</name>
     <message>
         <source>My Cover</source>
@@ -59,6 +66,10 @@
     </message>
     <message>
         <source>Game over: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An error occured: </source>
         <translation type="unfinished"></translation>
     </message>
 </context>

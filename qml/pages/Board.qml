@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.2
 import Sailfish.Silica 1.0
 import org.nemomobile.configuration 1.0
 import ".."
@@ -52,12 +52,14 @@ Page {
                 title: qsTr("Chess")
             }
 
-            Label {
+            LinkedLabel {
                 id: information
+                width: parent.width
+                color: "white"
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.bottom: grid.top
                 bottomPadding: Theme.paddingMedium
-                text: qsTr("Please start a game");
+                plainText: qsTr("Please start a game");
             }
 
             Grid {
