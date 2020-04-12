@@ -179,6 +179,7 @@ Item {
                             stop_game();
                             return;
                         } else if (data["type"] === "chatLine") {
+                            chat.text = data["username"] + ": " + data["text"];
                             return;
                         }
 
@@ -236,6 +237,22 @@ Item {
                 clear();
                 stop_game();
             }
+        })
+    }
+
+    function resign() {
+        post("board/game/" + game_id + "/resign", "", function (response) {
+            if (response["ok"]) {
+                information.text = qsTr("Game over: ") + qsTr("Resigned");
+                stop_game();
+            }
+        })
+    }
+
+    function offer_draw() {
+        post("board/game/" + game_id + "/draw/yes", "", function (response) {
+            if (response["ok"])
+                information.text = qsTr("Offered draw");
         })
     }
 

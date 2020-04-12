@@ -1,6 +1,6 @@
 import QtQuick 2.2
 import Sailfish.Silica 1.0
-import org.nemomobile.configuration 1.0
+import Nemo.Configuration 1.0
 import ".."
 
 Page {
@@ -30,14 +30,30 @@ Page {
                 onClicked: functions.start_seek()
             }
             MenuItem {
-                text: qsTr("Play against bot")
+                text: qsTr("Challenge user")
                 visible: functions.game_id === "" ? true : false
-                onClicked: functions.challenge("awesomelvin")
+                onClicked: {
+                    var dialog = pageStack.push("UserDialog.qml");
+                    dialog.accepted.connect(function() {
+                        functions.challenge(dialog.name);
+                    });
+                }
             }
             MenuItem {
+                // I THINK it works like that
                 text: qsTr("Abort game")
-                visible: functions.game_id === "" ? false : true
+                visible: functions.game_id !== "" && functions.moves.split(" ").length <= 2 ? true : false
                 onClicked: functions.abort()
+            }
+            MenuItem {
+                text: qsTr("Resign game")
+                visible: functions.game_id !== "" && functions.moves.split(" ").length > 2 ? true : false
+                onClicked: functions.resign()
+            }
+            MenuItem {
+                text: qsTr("Offer/accept draw")
+                visible: functions.game_id !== "" && functions.moves.split(" ").length > 2 ? true : false
+                onClicked: functions.offer_draw()
             }
         }
 
@@ -83,11 +99,21 @@ Page {
             }
 
             Label {
-                // id: turn_label
+                id: turn_label
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: grid.bottom
                 topPadding: Theme.paddingMedium
                 text: functions.turn ? qsTr("Your turn") : qsTr("Opponents turn");
+            }
+
+            LinkedLabel {
+                id: chat
+                width: parent.width
+                color: "white"
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: turn_label.bottom
+                topPadding: Theme.paddingMedium
+                plainText: "";
             }
         }
     }

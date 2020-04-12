@@ -1,7 +1,7 @@
 import QtQuick 2.2
 import Sailfish.Silica 1.0
 import QtWebKit 3.0
-import org.nemomobile.configuration 1.0
+import Nemo.Configuration 1.0
 
 Page {
     SilicaWebView {

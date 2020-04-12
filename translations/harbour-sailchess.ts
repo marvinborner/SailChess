@@ -12,10 +12,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Play against bot</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Please start a game</source>
         <translation type="unfinished"></translation>
     </message>
@@ -33,6 +29,18 @@
     </message>
     <message>
         <source>Opponents turn</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Challenge user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resign game</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Offer/accept draw</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -70,6 +78,25 @@
     </message>
     <message>
         <source>An error occurred: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resigned</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Offered draw</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UserDialog</name>
+    <message>
+        <source>e.g. LeelaChess</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Username</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

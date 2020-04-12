@@ -5,42 +5,50 @@
     <name>Board</name>
     <message>
         <source>Chess</source>
-        <translation type="unfinished"></translation>
+        <translation>Schach</translation>
     </message>
     <message>
         <source>Random player</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Play against bot</source>
-        <translation type="unfinished"></translation>
+        <translation>Zufälliger Spieler</translation>
     </message>
     <message>
         <source>Please start a game</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitte starte ein Spiel</translation>
     </message>
     <message>
         <source>Abort game</source>
-        <translation type="unfinished"></translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>Refresh login</source>
-        <translation type="unfinished"></translation>
+        <translation>Anmeldung regenerieren</translation>
     </message>
     <message>
         <source>Your turn</source>
-        <translation type="unfinished"></translation>
+        <translation>Du bist dran</translation>
     </message>
     <message>
         <source>Opponents turn</source>
+        <translation>Der Gegner ist dran</translation>
+    </message>
+    <message>
+        <source>Challenge user</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resign game</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Offer/accept draw</source>
+        <translation>Remis anbieten/annehmen</translation>
     </message>
 </context>
 <context>
     <name>ChallengeDialog</name>
     <message>
         <source> challenges you</source>
-        <translation type="unfinished"></translation>
+        <translation> fordert dich heraus</translation>
     </message>
 </context>
 <context>
@@ -54,23 +62,42 @@
     <name>Functions</name>
     <message>
         <source>Game started!</source>
-        <translation type="unfinished"></translation>
+        <translation>Spiel gestartet!</translation>
     </message>
     <message>
         <source>Please start a game</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitte starte ein Spiel</translation>
     </message>
     <message>
         <source>Waiting for </source>
-        <translation type="unfinished"></translation>
+        <translation>Warte auf </translation>
     </message>
     <message>
         <source>Game over: </source>
-        <translation type="unfinished"></translation>
+        <translation>Spiel vorbei: </translation>
     </message>
     <message>
         <source>An error occurred: </source>
+        <translation>Ein Fehler ist aufgetreten: </translation>
+    </message>
+    <message>
+        <source>Resigned</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Offered draw</source>
+        <translation>Remis angeboten</translation>
+    </message>
+</context>
+<context>
+    <name>UserDialog</name>
+    <message>
+        <source>e.g. LeelaChess</source>
+        <translation>z.B. LeelaChess</translation>
+    </message>
+    <message>
+        <source>Username</source>
+        <translation>Nutzername</translation>
     </message>
 </context>
 </TS>
