@@ -33,11 +33,11 @@
     </message>
     <message>
         <source>Challenge user</source>
-        <translation type="unfinished"></translation>
+        <translation>Fordere heraus</translation>
     </message>
     <message>
         <source>Resign game</source>
-        <translation type="unfinished"></translation>
+        <translation>Aufgeben</translation>
     </message>
     <message>
         <source>Offer/accept draw</source>
@@ -82,7 +82,7 @@
     </message>
     <message>
         <source>Resigned</source>
-        <translation type="unfinished"></translation>
+        <translation>Aufgegeben</translation>
     </message>
     <message>
         <source>Offered draw</source>
